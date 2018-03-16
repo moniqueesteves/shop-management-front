@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import PropTypes from 'prop-types';
-import { incrementIfOdd } from '../actions';
+import Fruta from '../assets/images/fruta.png';
 
 class Page extends Component {
   constructor(props) {
@@ -12,13 +11,7 @@ class Page extends Component {
     };
   }
 
-  onClickIncrementar = () => {
-    const props = this.props;
-    props.incrementIfOdd();
-  }
-
   render() {
-    const props = this.props;
     return (
       <div id="principal" className="container-fluid" >
         <div className="row">
@@ -55,21 +48,21 @@ class Page extends Component {
           </div>
         </div>
         <div className="row">
-          <div className="col-2"> <button onClick={this.onClickIncrementar}>Incrementar</button></div>
-          <div className="col-10"> <label htmlFor="principal">{props.example.count}</label></div>
+          <div className="card">
+            <div className="card-header bg-primary text-white">
+              <img alt="Frutas" src={Fruta} />
+            </div>
+            <div className="card-body bg-success text-white" />
+            <div className="card-footer bg-warning text-white" />
+          </div>
         </div>
       </div>
     );
   }
 }
 
-Page.defaultProps = {
-  incrementIfOdd: PropTypes.func.isRequired,
-};
-
 const mapStateToProps = state => ({ example: state.example });
 const mapDispatchToProps = dispatch => bindActionCreators({
-  incrementIfOdd,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Page);
