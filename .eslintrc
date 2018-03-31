@@ -12,13 +12,16 @@
   "rules": {
     "ignoreStrings": true,
     "no-underscore-dangle": [2, { "allow": ["__INITIAL_STATE__"] }],
+    "no-undef": [0],
     "no-console": 0,
     "react/forbid-prop-types": 0,
     "react/require-default-props": "off",
     "max-len": [2, { "code": 200, "comments": 200 }],
     "no-useless-escape": "off",
     "no-param-reassign": 0,
-    "no-shadow": 0
+    "no-shadow": 0,
+    "import/prefer-default-export": 0,
+    "react/prop-types": 0
   },
   "plugins": ["react", "jsx-a11y", "import"],
   "env": {

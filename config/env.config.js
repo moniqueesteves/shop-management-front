@@ -13,7 +13,11 @@ const config = {
     // apiServerUrl: 'http://localhost:3000/api/',
   },
   test: {},
-  development: {},
+  development: {
+    host: process.env.HOST || 'localhost',
+    port: process.env.PORT || 3000,
+    apiServerUrl: 'http://localhost:8080/',
+  },
   production: {
     host: process.env.HOST || 'localhost',
     port: process.env.PORT || 8080,
