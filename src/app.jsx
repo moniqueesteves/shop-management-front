@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import './assets/fonts/fonts.css';
 import page from './pages/index';
+import produtos from './pages/gridProdutos';
 
 const app = () => (
   <div>
@@ -19,6 +20,7 @@ const app = () => (
     </Helmet>
     <Switch>
       <Route path="/" component={page} exact />
+      <Route path="/produtos" component={produtos} />
     </Switch>
   </div>
 );
