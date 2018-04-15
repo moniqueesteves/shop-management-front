@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import './assets/fonts/fonts.css';
 import page from './pages/index';
 import produtos from './pages/gridProdutos';
+import contato from './pages/contato';
 
 const app = () => (
   <div>
@@ -21,6 +22,7 @@ const app = () => (
     <Switch>
       <Route path="/" component={page} exact />
       <Route path="/produtos" component={produtos} />
+      <Route path="/contato" component={contato} />
     </Switch>
   </div>
 );

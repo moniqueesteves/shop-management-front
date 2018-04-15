@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { listarItens } from '../actions/index';
+import { listarPorTipo } from '../actions/index';
 import './style.css';
+import { Menu } from './menu';
+// import { Contato } from './contato';
+import { Footer } from './footer';
 import history from '../history';
 
 import cardHortifruti from '../assets/images/card-hortifruti.png';
@@ -26,187 +29,216 @@ class Page extends Component {
     };
   }
 
-  listarProdutoSelecionado = () => {
-    this.props.listarItens();
+  listarProdutoSelecionado = (type) => {
+    this.props.listarPorTipo(type);
     history.push('/produtos');
   }
 
-  render() {
-    return (
-      <div>
-        <header>
-          <nav className="navbar navbar-default">
-            <div className="container">
 
-              <div className="navbar-header">
-                <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse-navbar" aria-expanded="false">
-                  <span className="sr-only">Toggle navigation</span>
-                  <span className="icon-bar" />
-                  <span className="icon-bar" />
-                  <span className="icon-bar" />
-                </button>
+  cardHortifruti = () => (
+    <div className="col-sm-6 col-md-4 col-lg-3">
+      <button onClick={() => this.listarProdutoSelecionado('hortifruti')} className="button-card">
+        <figure className="thumbnail">
+          <img src={cardHortifruti} alt="" />
+          <figcaption className="caption">
+            <h3>Hortifruti</h3>
+          </figcaption>
+        </figure>
+      </button>
+    </div>)
 
-                <a className="navbar-brand" href="">Gerenciamento de dispensa</a>
-              </div>
+    cardPaesBolos = () => (
+      <div className="col-sm-6 col-md-4 col-lg-3">
+        <button onClick={() => this.listarProdutoSelecionado('massas')} className="button-card">
+          <figure className="thumbnail">
+            <img src={cardPaes} alt="" />
+            <figcaption className="caption">
+              <h3>Pães e Bolos</h3>
+            </figcaption>
+          </figure>
+        </button>
+      </div>
+    )
 
-              <div className="collapse navbar-collapse" id="collapse-navbar">
-                <ul className="nav navbar-nav">
-                  <li><a href="#nossos-projetos">Produtos</a></li>
-                  <li><a href="#depoimentos">Cadastrar</a></li>
-                  <li><a href="#contato">Contato</a></li>
-                </ul>
-              </div>
-            </div>
-          </nav>
-        </header>
-
-        <section id="nossos-projetos" className="container">
-          <h2>Produtos</h2>
-
-          <div className="row">
-            <div className="col-sm-6 col-md-4 col-lg-3">
-              <button onClick={this.listarProdutoSelecionado} className="button-card">
-                <figure className="thumbnail">
-                  <img src={cardHortifruti} alt="" />
-                  <figcaption className="caption">
-                    <h3>Hortifruti</h3>
-                  </figcaption>
-                </figure>
-              </button>
-            </div>
-
-            <div className="col-sm-6 col-md-4 col-lg-3">
-              <figure className="thumbnail">
-                <img src={cardPaes} alt="" />
-                <figcaption className="caption">
-                  <h3>Pães e Bolos</h3>
-                </figcaption>
-              </figure>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3">
-              <figure className="thumbnail">
-                <img src={cardFrios} alt="" />
-                <figcaption className="caption">
-                  <h3>Frios e Laticínios</h3>
-                </figcaption>
-              </figure>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3">
-              <figure className="thumbnail">
-                <img src={cardCarnes} alt="" />
-                <figcaption className="caption">
-                  <h3>Carnes e Peixes</h3>
-                </figcaption>
-              </figure>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3">
-              <figure className="thumbnail">
-                <img src={cardMassas} alt="" />
-                <figcaption className="caption">
-                  <h3>Massas</h3>
-                </figcaption>
-              </figure>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3">
-              <figure className="thumbnail">
-                <img src={cardBiscoitos} alt="" />
-                <figcaption className="caption">
-                  <h3>Biscoitos e Snacks</h3>
-                </figcaption>
-              </figure>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3">
-              <figure className="thumbnail">
-                <img src={cardBebidas} alt="" />
-                <figcaption className="caption">
-                  <h3>Bebidas</h3>
-                </figcaption>
-              </figure>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3">
-              <figure className="thumbnail">
-                <img src={cardPerfumaria} alt="" />
-                <figcaption className="caption">
-                  <h3>Perfumaria e Higiene</h3>
-                </figcaption>
-              </figure>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3">
-              <figure className="thumbnail">
-                <img src={cardLimpeza} alt="" />
-                <figcaption className="caption">
-                  <h3>Limpeza</h3>
-                </figcaption>
-              </figure>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3">
-              <figure className="thumbnail">
-                <img src={cardTemperos} alt="" />
-                <figcaption className="caption">
-                  <h3>Óleos e Temperos</h3>
-                </figcaption>
-              </figure>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3">
-              <figure className="thumbnail">
-                <img src={cardCongelados} alt="" />
-                <figcaption className="caption">
-                  <h3>Congelados</h3>
-                </figcaption>
-              </figure>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3">
-              <figure className="thumbnail">
-                <img src={cardUtilidades} alt="" />
-                <figcaption className="caption">
-                  <h3>Utilidades</h3>
-                </figcaption>
-              </figure>
-            </div>
-          </div>
-        </section>
-
-        <br /><br /><br />
-
-        <div className="container">
-          <div className="row">
-            <section id="contato" className="col-sm-6">
-              <h2>Contato</h2>
-              <h4>Entre em contato conosco</h4>
-
-              <form>
-                <div className="form-group">
-                  <label htmlFor="contato-nome">Nome:</label>
-                  <input id="contato-nome" className="form-control" type="text" placeholder="Seu nome" />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="contato-email">E-mail:</label>
-                  <div className="input-group">
-                    <div className="input-group-addon">@</div>
-                    <input id="contato-email" className="form-control" type="email" placeholder="Seu e-mail" />
-                  </div>
-                </div>
-
-                <button type="submit" className="btn btn-primary">Enviar</button>
-
-              </form>
-            </section>
-          </div>
-        </div>
-
-        <footer>
-          <address>
-            <strong>Gerenciamento de dispensa</strong><br />
-          </address>
-          <address>
-          E-mail: gerenciamentodispensa@gmail.com
-          </address>
-        </footer>
+    cardFriosLaticinios =() => (
+      <div className="col-sm-6 col-md-4 col-lg-3">
+        <button onClick={() => this.listarProdutoSelecionado('frios')} className="button-card">
+          <figure className="thumbnail">
+            <img src={cardFrios} alt="" />
+            <figcaption className="caption">
+              <h3>Frios e Laticínios</h3>
+            </figcaption>
+          </figure>
+        </button>
       </div>
 
-    );
-  }
+    )
+
+    cardCarnesPeixes =() => (
+      <div className="col-sm-6 col-md-4 col-lg-3">
+        <button onClick={() => this.listarProdutoSelecionado('carnes')} className="button-card">
+          <figure className="thumbnail">
+            <img src={cardCarnes} alt="" />
+            <figcaption className="caption">
+              <h3>Carnes e Peixes</h3>
+            </figcaption>
+          </figure>
+        </button>
+      </div>
+    )
+
+    cardMassas = () => (
+      <div className="col-sm-6 col-md-4 col-lg-3">
+        <button onClick={() => this.listarProdutoSelecionado('massas')} className="button-card">
+          <figure className="thumbnail">
+            <img src={cardMassas} alt="" />
+            <figcaption className="caption">
+              <h3>Massas</h3>
+            </figcaption>
+          </figure>
+        </button>
+      </div>
+    )
+
+    cardBiscoitos = () => (
+      <div className="col-sm-6 col-md-4 col-lg-3">
+        <button onClick={() => this.listarProdutoSelecionado('biscoitos')} className="button-card">
+          <figure className="thumbnail">
+            <img src={cardBiscoitos} alt="" />
+            <figcaption className="caption">
+              <h3>Biscoitos e Snacks</h3>
+            </figcaption>
+          </figure>
+        </button>
+      </div>
+    )
+
+    cardBebidas = () => (
+      <div className="col-sm-6 col-md-4 col-lg-3">
+        <button onClick={() => this.listarProdutoSelecionado('bebidas')} className="button-card">
+          <figure className="thumbnail">
+            <img src={cardBebidas} alt="" />
+            <figcaption className="caption">
+              <h3>Bebidas</h3>
+            </figcaption>
+          </figure>
+        </button>
+      </div>
+    )
+
+    cardPerfumariaHigiene = () => (
+      <div className="col-sm-6 col-md-4 col-lg-3">
+        <button onClick={() => this.listarProdutoSelecionado('perfumaria')} className="button-card">
+          <figure className="thumbnail">
+            <img src={cardPerfumaria} alt="" />
+            <figcaption className="caption">
+              <h3>Perfumaria e Higiene</h3>
+            </figcaption>
+          </figure>
+        </button>
+      </div>
+    )
+
+    cardLimpeza = () => (
+      <div className="col-sm-6 col-md-4 col-lg-3">
+        <button onClick={() => this.listarProdutoSelecionado('limpeza')} className="button-card">
+          <figure className="thumbnail">
+            <img src={cardLimpeza} alt="" />
+            <figcaption className="caption">
+              <h3>Limpeza</h3>
+            </figcaption>
+          </figure>
+        </button>
+      </div>
+    )
+
+    cardOleosTemperos = () => (
+      <div className="col-sm-6 col-md-4 col-lg-3">
+        <button onClick={() => this.listarProdutoSelecionado('oleosTemperos')} className="button-card">
+          <figure className="thumbnail">
+            <img src={cardTemperos} alt="" />
+            <figcaption className="caption">
+              <h3>Óleos e Temperos</h3>
+            </figcaption>
+          </figure>
+        </button>
+      </div>
+    )
+
+    cardCongelados = () => (
+      <div className="col-sm-6 col-md-4 col-lg-3">
+        <button onClick={() => this.listarProdutoSelecionado('congelados')} className="button-card">
+          <figure className="thumbnail">
+            <img src={cardCongelados} alt="" />
+            <figcaption className="caption">
+              <h3>Congelados</h3>
+            </figcaption>
+          </figure>
+        </button>
+      </div>
+    )
+
+    cardUtilidades = () => (
+      <div className="col-sm-6 col-md-4 col-lg-3">
+        <button onClick={() => this.listarProdutoSelecionado('utilidades')} className="button-card">
+          <figure className="thumbnail">
+            <img src={cardUtilidades} alt="" />
+            <figcaption className="caption">
+              <h3>Utilidades</h3>
+            </figcaption>
+          </figure>
+        </button>
+      </div>
+    )
+
+
+    render() {
+      return (
+        <div>
+          <Menu />
+
+          <section id="" className="container">
+            <h2>Produtos</h2>
+
+            <div className="row">
+              {this.cardHortifruti()}
+
+              {this.cardPaesBolos()}
+
+              {this.cardFriosLaticinios()}
+
+              {this.cardCarnesPeixes()}
+
+              {this.cardMassas()}
+
+              {this.cardBiscoitos()}
+
+              {this.cardBebidas()}
+
+              {this.cardPerfumariaHigiene()}
+
+              {this.cardLimpeza()}
+
+              {this.cardOleosTemperos()}
+
+              {this.cardCongelados()}
+
+              {this.cardUtilidades()}
+
+            </div>
+          </section>
+
+          <br /><br /><br />
+
+          {/* <Contato /> */}
+
+          <Footer />
+
+
+        </div>
+
+      );
+    }
 }
 
 function mapStateToProps({ itens }) {
@@ -215,7 +247,7 @@ function mapStateToProps({ itens }) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    listarItens,
+    listarPorTipo,
   }, dispatch);
 }
 

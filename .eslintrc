@@ -21,7 +21,8 @@
     "no-param-reassign": 0,
     "no-shadow": 0,
     "import/prefer-default-export": 0,
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "no-nested-ternary": "off"
   },
   "plugins": ["react", "jsx-a11y", "import"],
   "env": {

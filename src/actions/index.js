@@ -1,26 +1,9 @@
 import axios from 'axios';
-// import apiServerUrl from '../../config/env.config';
 
-// export const INCREMENT_COUNTER = 'INCREMENT_COUNTER';
-// export const increment = () => async (dispatch) => {
-//   dispatch({
-//     type: INCREMENT_COUNTER,
-//   });
-// };
-
-// export const incrementIfOdd = () => async (dispatch, getState) => {
-//   const { counter } = getState();
-
-//   if (counter % 2 === 0) {
-//     return;
-//   }
-
-//   dispatch({
-//     type: INCREMENT_COUNTER,
-//   });
-// };
 export const LISTAR_ITENS = 'LISTAR_ITENS';
-// console.log('reducer >>>>>', listarItens);
+export const LISTAR_POR_TIPO = 'LISTAR_POR_TIPO';
+export const SALVAR_PRODUTO = 'SALVAR_PRODUTO';
+
 export const listarItens = () => (dispatch) => {
   axios
     .get(
@@ -38,6 +21,37 @@ export const listarItens = () => (dispatch) => {
     );
 };
 
-// module.exports = {
-//   listarItens,
-// };
+export const listarPorTipo = type => (dispatch) => {
+  axios
+    .get(
+      `http://localhost:8080/products/${type}`,
+      { type },
+      {
+        headers: {},
+      },
+    )
+    .then(response =>
+      dispatch({
+        type: LISTAR_POR_TIPO,
+        payload: response,
+      }),
+    );
+};
+
+export const salvarProduto = dados => (dispatch) => {
+  axios
+    .get(
+      `http://localhost:8080/products/${type}`,
+      { dados },
+      {
+        headers: {},
+      },
+    )
+    .then(response =>
+      dispatch({
+        type: SALVAR_PRODUTO,
+        payload: response,
+      }),
+    );
+};
+

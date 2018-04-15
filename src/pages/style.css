@@ -3,6 +3,10 @@
     display:none
 } 
 
+.space{
+	line-height: 100px;		
+}
+
 #paineis-sobre {
 	margin-top: 20px;
 }
