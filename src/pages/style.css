@@ -3,8 +3,16 @@
     display:none
 } 
 
-.space{
-	line-height: 100px;		
+.input-amount{
+	width: 20px;
+}
+
+.input-price{
+	width: 60px;
+}
+
+.btn{
+	padding: 5px 4px;
 }
 
 #paineis-sobre {
@@ -14,6 +22,7 @@
 html,
 body {
 	height: 100%;
+	font-size:13px;
 }
 
 header {

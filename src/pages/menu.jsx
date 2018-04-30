@@ -29,7 +29,7 @@ export class Menu extends Component {
               <div className="collapse navbar-collapse" id="collapse-navbar">
                 <ul className="nav navbar-nav">
                   <li><a href="">Produtos</a></li>
-                  <li><a href="#cadastrar">Cadastrar</a></li>
+                  <li><a href="#cadastro">Cadastrar</a></li>
                   <li><a href="#contato">Contato</a></li>
                 </ul>
               </div>

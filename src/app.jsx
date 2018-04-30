@@ -5,6 +5,7 @@ import './assets/fonts/fonts.css';
 import page from './pages/index';
 import produtos from './pages/gridProdutos';
 import contato from './pages/contato';
+import cadastro from './pages/cadastro';
 
 const app = () => (
   <div>
@@ -23,6 +24,7 @@ const app = () => (
       <Route path="/" component={page} exact />
       <Route path="/produtos" component={produtos} />
       <Route path="/contato" component={contato} />
+      <Route path="/cadastro" component={cadastro} />
     </Switch>
   </div>
 );

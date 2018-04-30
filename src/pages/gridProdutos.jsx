@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import formatCurrencytoBr from 'format-currency-to-br';
-// import { salvarProduto } from '../actions/index';
+import { salvarProduto, listarPorTipo } from '../actions/index';
 import './style.css';
 import { Menu } from './menu';
 
@@ -10,7 +10,6 @@ class Produtos extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hello: 'Teste',
       visivel: 'invisible',
       disabled: true,
       editarInputAmount: false,
@@ -18,6 +17,9 @@ class Produtos extends Component {
       ocultarInput: 'invisible',
       ocultarLabel: 'visible',
       id: '',
+      valorAmount: '',
+      valorPrice: '',
+      produto: '',
     };
   }
 
@@ -25,8 +27,10 @@ class Produtos extends Component {
     const valoresMudaram = this.state.visivel !== nextState.visivel;
 
     if (valoresMudaram) {
-      if (nextState.visivel !== 'visible') {
+      if (nextState.visivel === 'invisible') {
         this.handleHabilitarInput();
+      } else {
+        this.handleListaAtualizada();
       }
     }
   }
@@ -35,22 +39,46 @@ class Produtos extends Component {
       this.setState({ visivel: 'visible', id });
     }
 
-    handleLimparCampo = (tipo) => {
-      if (tipo === 'amount') {
-        this.setState({ editarInputAmount: true });
-      } else {
-        this.setState({ editarInputPrice: true });
-      }
+    handleListaAtualizada = () => {
+      this.setState({ visivel: 'atualizada' });
     }
 
-    handleEditar = (e) => {
-      const { value } = e.target;
-      e.target.value = value;
+    // handleLimparCampo = (tipo) => {
+    //   if (tipo === 'amount') {
+    //     this.setState({ editarInputAmount: true });
+    //   } else {
+    //     this.setState({ editarInputPrice: true });
+    //   }
+    // }
+
+    handleEditarAmount = (event) => {
+      const { value } = event.target;
+      event.target.value = value;
+      this.setState({ valorAmount: event.target.value });
     }
 
-    handleSalvarAlteracoes = () => {
-    //  this.props.salvarProduto(amount, price);
+    handleEditarPrice = (event) => {
+      const { value } = event.target;
+      event.target.value = value;
+      this.setState({ valorPrice: event.target.value });
+    }
+
+    handleSalvarAlteracoes = (id, name) => {
+      const dados = {
+        id,
+        name,
+        price: this.state.valorPrice,
+        amount: this.state.valorAmount,
+      };
+      console.log('dados', dados);
+      this.props.salvarProduto(id, name, this.state.valorPrice, this.state.valorAmount, this.props.itens.tipoProduto);
+      // .then((response) => {
+      //   if (response.payload.status === 200) {
+      //     this.props.listarProdutoSelecionado(name);
+      //   }
+      // });
       this.setState({ visivel: 'invisible' });
+      this.props.listarPorTipo(this.props.itens.tipoProduto);
     }
 
     render() {
@@ -69,21 +97,21 @@ class Produtos extends Component {
                     <thead>
                       <tr>
                         <th scope="col" />
-                        <th scope="col">#</th>
+                        {/* <th scope="col">#</th> */}
                         <th scope="col">Produto</th>
-                        <th scope="col">Quantidade</th>
+                        <th scope="col">Estoque</th>
                         <th scope="col">Preço</th>
                         <th scope="col">Ações</th>
                       </tr>
                     </thead>
-                    {this.props.itens.listaPorTipo.map((item, index) => (
+                    {this.props.itens.listaPorTipo.map(item => (
                       <tbody>
                         {this.state.visivel === 'invisible' ?
                           <tr>
                             <th scope="row" />
-                            <td>{index}</td>
+                            {/* <td>{index}</td> */}
                             <td><label htmlFor="name"> {item.name}</label></td>
-                            <td><label htmlFor="amount"> {item.amount}</label></td>
+                            <td><label htmlFor="amount"> {item.amount }</label></td>
                             <td><label htmlFor="price"> {formatCurrencytoBr(item.price)}</label></td>
                             <td><button type="submit" className="btn btn-secondary" onClick={() => this.handleHabilitarInput(item.id)}>Editar</button></td>
                           </tr>
@@ -91,30 +119,35 @@ class Produtos extends Component {
                           this.state.id === item.id ?
                             <tr>
                               <th scope="row" />
-                              <td>{index}</td>
+                              {/* <td>{index}</td> */}
                               <td><label htmlFor="name"> {item.name}</label></td>
                               <td><input
                                 type="text"
-                                value={this.state.editarInputAmount === true ? null : item.amount}
-                                onChange={this.handleEditar}
-                                onFocus={() => this.handleLimparCampo('amount')}
+                                className="input-amount"
+                                maxLength="2"
+                                value={this.state.valorAmount}
+                                onChange={this.handleEditarAmount}
+                                // onFocus={() => this.handleLimparCampo('amount')}
                               /></td>
                               <td><input
                                 type="text"
-                                value={this.state.editarInputPrice === true ? null : formatCurrencytoBr(item.price)}
-                                onChange={this.handleEditar}
-                                onFocus={() => this.handleLimparCampo('price')}
+                                maxLength="8"
+                                className="input-price"
+                                value={this.state.id === item.id ? this.state.valorPrice : ''}
+                                onChange={this.handleEditarPrice}
+                                //   onFocus={() => this.handleLimparCampo('price')}
                               /></td>
-                              <td><button type="submit" className="btn btn-secondary" onClick={() => this.handleSalvarAlteracoes()}>Salvar</button></td>
+                              <td><button type="submit" className="btn btn-secondary" onClick={() => this.handleSalvarAlteracoes(item.id, item.name, item.amount, item.price)}>Salvar</button></td>
                             </tr> :
                             <tr>
                               <th scope="row" />
-                              <td>{index}</td>
+                              {/* <td>{index}</td> */}
                               <td><label htmlFor="name"> {item.name}</label></td>
-                              <td><label htmlFor="amount"> {item.amount}</label></td>
-                              <td><label htmlFor="price"> {formatCurrencytoBr(item.price)}</label></td>
+                              <td><label htmlFor="amount"> {this.state.id === item.id ? this.state.valorAmount !== '' ? this.state.valorAmount : item.amount : item.amount}</label></td>
+                              <td><label htmlFor="price"> {formatCurrencytoBr(this.state.valorPrice !== '' ? this.state.valorPrice : item.price) }</label></td>
                               <td><button type="submit" className="btn btn-secondary" onClick={() => this.handleHabilitarInput(item.id)}>Editar</button></td>
                             </tr>
+
 
                         }
                       </tbody>
@@ -137,7 +170,7 @@ function mapStateToProps({ itens }) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    //    salvarProduto,
+    salvarProduto, listarPorTipo,
   }, dispatch);
 }
 

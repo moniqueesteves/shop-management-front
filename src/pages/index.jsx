@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { listarPorTipo } from '../actions/index';
+import { listarPorTipo, armazenarTipo } from '../actions/index';
 import './style.css';
 import { Menu } from './menu';
 // import { Contato } from './contato';
@@ -31,6 +31,7 @@ class Page extends Component {
 
   listarProdutoSelecionado = (type) => {
     this.props.listarPorTipo(type);
+    this.props.armazenarTipo(type);
     history.push('/produtos');
   }
 
@@ -247,7 +248,7 @@ function mapStateToProps({ itens }) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    listarPorTipo,
+    listarPorTipo, armazenarTipo,
   }, dispatch);
 }
 
